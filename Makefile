@@ -201,10 +201,10 @@ dist:
 	env GOOS=darwin GOARCH=amd64 go build -o bin/darwin_amd64 ${BUILD_FLAGS} ./tools/signhere
 	env GOOS=darwin GOARCH=arm64 go build -o bin/darwin_arm64 ${BUILD_FLAGS} ./tools/signhere
 	
-	/usr/bin/tar -C bin/linux_amd64 --uid 0  --no-fflags --no-mac-metadata --strip-components 1 -czvf bin/arkeo_linux_amd64.tar.gz .
-	/usr/bin/tar -C bin/linux_arm64 --uid 0  --no-fflags --no-mac-metadata --strip-components 1 -czvf bin/arkeo_linux_arm64.tar.gz .
-	/usr/bin/tar -C bin/darwin_amd64 --uid 0  --no-fflags --no-mac-metadata --strip-components 1 -czvf bin/arkeo_darwin_amd64.tar.gz .
-	/usr/bin/tar -C bin/darwin_arm64 --uid 0  --no-fflags --no-mac-metadata --strip-components 1 -czvf bin/arkeo_darwin_arm64.tar.gz .
+	/usr/bin/tar -C bin/linux_amd64 --strip-components 1 -czvf bin/arkeo_linux_amd64.tar.gz .
+	/usr/bin/tar -C bin/linux_arm64 --strip-components 1 -czvf bin/arkeo_linux_arm64.tar.gz .
+	/usr/bin/tar -C bin/darwin_amd64 --strip-components 1 -czvf bin/arkeo_darwin_amd64.tar.gz .
+	/usr/bin/tar -C bin/darwin_arm64 --strip-components 1 -czvf bin/arkeo_darwin_arm64.tar.gz .
 
 	pushd bin && \
 	sha256sum arkeo_linux_amd64.tar.gz > ../docs/testing/sums/arkeo_linux_amd64.sha256 && \

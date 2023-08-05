@@ -8,12 +8,12 @@ CHAIN_ID="arkeo"
 PORT_RPC=${PORT_RPC:=26657}
 PORT_P2P=${PORT_P2P:=26656}
 
-if [ ! -f ~/.arkeo/config/genesis.json ]; then
+if [ ! -f /root/.arkeo/config/genesis.json ]; then
 	echo "setting validator node"
 
 	arkeod init local --chain-id "$CHAIN_ID"
 
-	rm -rf ~/.arkeo/config/genesis.json
+	rm -rf /root/.arkeo/config/genesis.json
 
 	if [ "$PEER" = "none" ]; then
 		echo "Missing PEER"
@@ -27,14 +27,14 @@ if [ ! -f ~/.arkeo/config/genesis.json ]; then
 	done
 
 	# fetch genesis file from seed node
-	curl "$PEER:$PORT_RPC/genesis" | jq '.result.genesis' >~/.arkeo/config/genesis.json
+	curl "$PEER:$PORT_RPC/genesis" | jq '.result.genesis' >/root/.arkeo/config/genesis.json
 
 	# fetch node id
 	SEED_ID=$(curl -s "$PEER:$PORT_RPC/status" | jq -r .result.node_info.id)
 	SEEDS="$SEED_ID@$PEER:$PORT_P2P"
 
-	sed -i 's/enable = false/enable = true/g' ~/.arkeo/config/app.toml
-	sed -i "s/seeds = \"\"/seeds = \"$SEEDS\"/g" ~/.arkeo/config/config.toml
+	sed -i 's/enable = false/enable = true/g' /root/.arkeo/config/app.toml
+	sed -i "s/seeds = \"\"/seeds = \"$SEEDS\"/g" /root/.arkeo/config/config.toml
 	# TODO: create this one as a validator
 	# arkeod tx staking create-validator --amount=100000000000uarkeo --pubkey=$(arkeod tendermint show-validator) --moniker="validator 1" --from=bob --keyring-backend test --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="1"
 fi

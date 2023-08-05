@@ -69,7 +69,7 @@ make proto-gen install
 [binary] keys add <key-name>
 [binary] config chain-id [chain-id]
 [binary] init <your_custom_moniker> --chain-id [chain-id]
-curl [insert link to raw version of genesis.json] > ~/.arkeo/config/genesis.json
+curl [insert link to raw version of genesis.json] > /root/.arkeo/config/genesis.json
 sudo ufw allow 26656
 ```
 
